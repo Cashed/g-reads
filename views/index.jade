@@ -3,3 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  
+  if authors
+    for author in authors
+      h2 #{author.first} #{author.last}
