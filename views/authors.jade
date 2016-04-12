@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 Authors
+  if authors[0] != null
+    for author in authors
+      h2 
+        a.btn-link(href='authors/profile/#{author.id}') #{author.first} #{author.last}
+  else
+    p search returned 0 results

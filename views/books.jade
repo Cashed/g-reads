@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Books
+  
+  if books[0] != null
+    for book in books
+      h2 
+        a(href='/books/book_profile/#{book.id}') #{book.title}
+  else
+    p search returned 0 results
+        

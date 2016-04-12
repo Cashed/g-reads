@@ -1,9 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
   
-  if authors
-    for author in authors
-      h2 #{author.first} #{author.last}
+  div.container
+    h1= title
+    p Welcome to #{title}
+    
+    form(onSubmit="this.action='/authors/' + this.author.value" method='get')
+      div.form-group
+        label(for="author") Author
+        input.form-control(type="text" id="author" name="author" value= '' placeholder="Search author...")
+      div.form-group
+        button.btn.btn-primary(type="submit") Search
+    form(onSubmit="this.action='/books/' + this.book.value" method='get')
+      div.form-group
+        label(for="book") Book
+        input.form-control(type="text" id="book" name="book" value= '' placeholder="Search book...")
+      div.form-group
+        button.btn.btn-primary(type="submit") Search
+      
+    a(href='/books') Books
+    br
+    a(href='/authors') Authors

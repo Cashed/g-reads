@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  if authors
+    for author in authors
+      h1 #{author.first} #{author.last}
+
+      img(src='#{author.url}')
+      
+      p #{author.bio}
+      
+      h2 Books
+      if books[0] != null
+        for book in books
+          h3 
+            a(href='/books/book_profile/#{book.id}') #{book.title}
+      else
+        p no books listed at this time
+      
+    
+    
+  

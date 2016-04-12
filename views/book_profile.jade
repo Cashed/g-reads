@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  if book
+    h1= book.title
+    
+    img(src='#{book.url}')
+    
+    p= book.description
+    
+    h2 Author
+    if authors
+      for author in authors
+        h3 
+          a(href='/authors/profile/#{author.id}') #{author.first} #{author.last}
+    
+    
+  
+        
