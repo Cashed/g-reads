@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const query = require('../lib/queries');
-const validation = require('../lib/validations');
+const valid = require('../lib/validations');
 
 router.get('/', (req, res, next) => {
   query.allBooks().then((books) => {
@@ -23,7 +23,7 @@ router.get('/:bookSearch', (req, res, next) => {
   const errors = [];
   const title = req.params.bookSearch.toLowerCase();
 
-  if(!validation.titleIsValid(title)) {
+  if(!valid.title(title)) {
     errors.push('not a valid title (ex: the mysterious stranger)');
   }
 

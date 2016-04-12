@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  
+  div.container
+    h1 Create Account
+    
+    form(action='/users/create' method='post')
+      div.form-group
+        label(for="username") Username
+        input.form-control(type="text" id="username" name="username" placeholder="Enter username...")
+      div.form-group
+        label(for="password") Password
+        input.form-control(type="password" id="password" name="password" placeholder="Enter password...")
+      div.form-group
+        button.btn.btn-primary(type="submit") Create Account

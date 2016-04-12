@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const query = require('../lib/queries');
-const validation = require('../lib/validations');
+const valid = require('../lib/validations');
 
 router.get('/', (req, res, next) => {
   query.allAuthors().then((authors) => {
@@ -13,7 +13,7 @@ router.get('/:authSearch', (req, res, next) => {
   const errors = [];
   const authName = (req.params.authSearch).toLowerCase();
 
-  if (!validation.authorIsValid(authName)) {
+  if (!valid.author(authName)) {
     errors.push('please enter valid author name (ex: mark twain)');
   }
 
