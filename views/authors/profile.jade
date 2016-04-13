@@ -1,6 +1,8 @@
-extends layout
+extends ../layout
 
 block content
+  div
+    a(href='/') Home
   if authors
     for author in authors
       h1 #{author.first} #{author.last}

@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  div
+    a(href='/') Home
+  
+  div.container
+    h1 Add an Author
+    
+    form(action='/' method='post')
+      div.form-group
+        label(for="name") Name
+        input.form-control(type="text" id="name" name="name" value= '' placeholder="Enter name... ex: Mark Twain")
+      div.form-group
+        label(for="portrait-url") Portrait URL
+        input.form-control(type="text" id="portrait-url" name="portrait-url" value= '' placeholder="Enter portrait url...")
+      div.form-group
+        label(for="bio") Biography
+        textarea.form-control(type="text" id="bio" name="bio" value= '' placeholder="Enter author bio...")
+      div.form-group
+        label(for="books") Book/s
+        textarea.form-control(type="text" id="books" name="books" value= '' placeholder="Enter books...(ex: The Mysterious Stranger)")
+      div.form-group
+        button.btn.btn-primary(type="submit") Add Author
+        
+      if errors
+        p errors.message

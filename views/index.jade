@@ -3,6 +3,9 @@ extends layout
 block content
   div.login
     a(href='/login') Admin Login
+  div
+    a(href='/books/add') Add Book
+    a(href='/authors/add') Add Author
   
   div.container
     h1= title
@@ -24,3 +27,5 @@ block content
     a(href='/books') Books
     br
     a(href='/authors') Authors
+    
+    img(src='http://code.divshot.com/geo-bootstrap/img/test/counter2.gif' class='counter')

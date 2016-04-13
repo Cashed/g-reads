@@ -4,7 +4,7 @@ const user = require('../lib/users');
 const valid = require('../lib/validations');
 
 router.get('/create', (req, res, next) => {
-  res.render('create_user');
+  res.render('users/create_user');
 });
 
 router.post('/create', (req, res, next) => {
@@ -21,13 +21,13 @@ router.post('/create', (req, res, next) => {
   }
 
   if (errors.length) {
-    res.render('create_user', { errors: errors });
+    res.render('users/create_user', { errors: errors });
     return;
   }
 
   user.create(req.body, (error, data) => {
     if (error) {
-      res.render('create_user', { errors: error })
+      res.render('users/create_user', { errors: error })
       return;
     }
     res.send(data);

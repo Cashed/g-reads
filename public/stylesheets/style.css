@@ -1,8 +1,13 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: url('http://code.divshot.com/geo-bootstrap/img/stars.gif');
 }
 
 a {
   color: #00B7FF;
+}
+
+.counter {
+  margin: 0 auto;
 }
