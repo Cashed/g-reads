@@ -7,7 +7,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/logout', (req, res, next) => {
-  res.clearCookie('user');
+  req.session.user = null;
   res.redirect('/');
 });
 

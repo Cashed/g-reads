@@ -1,31 +1,50 @@
 extends layout
 
 block content
-  div.login
-    a(href='/login') Admin Login
-  div
-    a(href='/books/add') Add Book
-    a(href='/authors/add') Add Author
-  
+  div.admin
+    if user
+      h3 Hello, #{user}! 
+        a(href='/login/logout')| Logout
+          img(src='/images/RainbowStar.gif-c200' width='25px') 
+    else
+      h3
+        a(href='/login') Admin Login
+          img(src='/images/RainbowStar.gif-c200' width='25px') 
+    h3
+      a(href='/books/add') Add Book
+        img(src='/images/RainbowStar.gif-c200' width='25px') 
+    h3
+      a(href='/authors/add') Add Author
+        img(src='/images/RainbowStar.gif-c200' width='25px') 
   div.container
-    h1= title
-    p Welcome to #{title}
-    
-    form(onSubmit="this.action='/authors/' + this.author.value" method='get')
-      div.form-group
-        label(for="author") Author
-        input.form-control(type="text" id="author" name="author" value= '' placeholder="Search author...")
-      div.form-group
-        button.btn.btn-primary(type="submit") Search
-    form(onSubmit="this.action='/books/' + this.book.value" method='get')
-      div.form-group
-        label(for="book") Book
-        input.form-control(type="text" id="book" name="book" value= '' placeholder="Search book...")
-      div.form-group
-        button.btn.btn-primary(type="submit") Search
+    div.container-border
+      h1= title
+      div.marquee
+        marquee Welcome to #{title}, please read responsibly!
       
-    a(href='/books') Books
-    br
-    a(href='/authors') Authors
+      form(onSubmit="this.action='/authors/' + this.author.value" method='get')
+        div.form-group
+          label(for="author") Author
+          input.form-control(type="text" id="author" name="author" value= '' placeholder="Search author...")
+        div.form-group
+          button.btn.btn-primary(type="submit" class='search') Search
+      form(onSubmit="this.action='/books/' + this.book.value" method='get')
+        div.form-group
+          label(for="book") Book
+          input.form-control(type="text" id="book" name="book" value= '' placeholder="Search book...")
+        div.form-group
+          button.btn.btn-primary(type="submit" class='search') Search
+        
+      a(href='/books') All Books
+      br
+      a(href='/authors') All Authors
     
-    img(src='http://code.divshot.com/geo-bootstrap/img/test/counter2.gif' class='counter')
+      div.guestbook
+        img(src='/images/new2.gif')
+        p Sign the Guestbook! ->
+        img(src='/images/guestbook_link.gif') 
+
+        
+      
+      
+    

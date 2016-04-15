@@ -1,21 +1,23 @@
 extends ../layout
 
 block content
-  div
-    a(href='/') Home
-  
+  div.admin
+    h3
+      a(href='/') Home
+        img(src='/images/RainbowStar.gif-c200' width='25px') 
   div.container
-    h1 Administrator Login
-    
-    form(action='/login' method='post')
-      div.form-group
-        label(for="username") Username
-        input.form-control(type="text" id="username" name="username" value= '' placeholder="Enter username...")
-      div.form-group
-        label(for="password") Password
-        input.form-control(type="password" id="password" name="password" value= '' placeholder="Enter password...")
-      div.form-group
-        button.btn.btn-primary(type="submit") Login
-        
-      a.btn.btn-default(href="users/create" role="button") Create Account
-        
+    div.container-border
+      h1 Administrator Login
+      
+      form(action='/login' method='post')
+        div.form-group
+          label(for="username") Username
+          input.form-control(type="text" id="username" name="username" value= '' placeholder="Enter username...")
+        div.form-group
+          label(for="password") Password
+          input.form-control(type="password" id="password" name="password" value= '' placeholder="Enter password...")
+        div.form-group
+          button.btn.btn-primary(type="submit") Login
+          
+        a.btn.btn-default(href="users/create" role="button") Create Account
+          

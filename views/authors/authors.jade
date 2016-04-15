@@ -1,12 +1,26 @@
 extends ../layout
 
 block content
-  div
-    a(href='/') Home
+  div.admin
+    h3
+      a(href='/') Home
+        img(src='/images/RainbowStar.gif-c200' width='25px') 
+  img(src='http://rs569.pbsrc.com/albums/ss138/dandytech/dancingvictor.gif~c200' width='100px')
   h1 Authors
-  if authors[0] != null
+  div.loading
+    img(src='http://hackspc.com/wp-content/uploads/2010/12/1.gif' width='250px' id='loading')
+  if authors
     for author in authors
-      h2 
-        a.btn-link(href='/authors/profile/#{author.id}') #{author.first} #{author.last}
+      div.chunk
+        h1 
+          a.btn-link(href='/authors/profile/#{author.id}') #{author.first} #{author.last}
+        div.ships
+          img(src='#{author.url}')
+        ul
+          for book in author.books
+            li 
+              a(href='/books/book_profile/#{book.id}') #{book.title}
+          
+              
   else
     p search returned 0 results

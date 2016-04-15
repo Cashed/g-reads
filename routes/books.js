@@ -5,6 +5,15 @@ const valid = require('../lib/validations');
 const insert = require('../lib/inserts');
 const knex = require('../db/knex');
 
+const ensureLoggedIn = function(req, res, next) {
+  if (req.session.user) {
+    console.log(req.session.user);
+    next();
+  }
+  else {
+    res.redirect('/');
+  }
+}
 
 router.get('/', (req, res, next) => {
   query.allBooks().then((books) => {
@@ -37,7 +46,7 @@ router.get('/book_profile/:bookId', (req, res, next) => {
   });
 });
 
-router.get('/add', (req, res, next) => {
+router.get('/add', ensureLoggedIn, (req, res, next) => {
   res.render('books/add_book');
 });
 
@@ -64,51 +73,50 @@ router.get('/:bookSearch', (req, res, next) => {
   });
 });
 
-// router.post('/add', (req, res, next) => {
-//   const errors =  [];
-//   const title = req.body.title;
-//   const genre = req.body.genre;
-//   const description =  req.body.description;
-//   const url = req.body.img_url;
-//   const authors = req.body.authors;
-//
-//   if (!valid.book(title)) {
-//     errors.push({ message: 'title not in valid format (alpha, digits, ,.\'-:)' });
-//   }
-//   if (!valid.genre(genre)) {
-//     errors.push({ message: 'genre not valid (alpha only)' });
-//   }
-//   if(!valid.description(description)) {
-//     errors.push({ message: 'description not valid (180 characters max)' });
-//   }
-//   if(!valid.url(url)) {
-//     errors.push({ message: 'url not valid (make sure to include correct format, such as http://...)' });
-//   }
-//
-//   authors.forEach((author) => {
-//     if(!valid.author(author)) {
-//       errors.push({ message: 'author name not valid'});
-//     }
-//   });
-//
-//   const book = {
-//     title: title,
-//     genre: genre,
-//     description: description,
-//     url: img_url
-//     authors: authors
-//   }
-//
-//   insert.book(book).then((book) => {
-//     res.redirect('/');
-//   })
-//   .catch((error) => {
-//     console.log('there was an error');
-//     res.render('books/add_book', { errors: error });
-//   });
-//
-//   Pr
-// });
+router.post('/add', (req, res, next) => {
+  const errors =  [];
+  const title = req.body.title;
+  const genre = req.body.genre;
+  const description = req.body.description;
+  const url = req.body.img_url;
+  const authors = req.body.authors;
+
+  if (!valid.title(title)) {
+    errors.push({ message: 'title not in valid format (alpha, digits, ,.\'-:)' });
+  }
+  if (!valid.genre(genre)) {
+    errors.push({ message: 'genre not valid (alpha only)' });
+  }
+  if(!valid.description(description)) {
+    errors.push({ message: 'description not valid (180 characters max)' });
+  }
+  if(!valid.url(url)) {
+    errors.push({ message: 'url not valid (make sure to include correct format, such as http://...)' });
+  }
+
+  const book = {
+    title: title,
+    genre: genre,
+    description: description,
+    url: img_url,
+    authors: authors
+  }
+
+  insert.book(book).then((book) => {
+    authors.forEach((authors) => {
+      if(!valid.author(authors)) {
+        errors.push({ message: 'author name not valid'});
+      }
+    });
+    res.redirect('/');
+  })
+  .catch((error) => {
+    console.log('there was an error');
+    res.render('books/add_book', { errors: error });
+  });
+
+  Pr
+});
 
 
 module.exports = router;

@@ -35,6 +35,11 @@ app.use(session({
   ]
 }));
 
+const setUserNameLocal = function (req, res, next) {
+  res.locals.currentUser = req.cookies.user;
+  next();
+}
+
 app.use('/', index);
 app.use('/authors', authors);
 app.use('/books', books);

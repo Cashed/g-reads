@@ -1,15 +1,18 @@
 extends ../layout
 
 block content
-  div
-    a(href='/') Home
+  div.admin
+    h3
+      a(href='/') Home
+        img(src='/images/RainbowStar.gif-c200' width='25px') 
   if authors
     for author in authors
       h1 #{author.first} #{author.last}
-
-      img(src='#{author.url}')
-      
-      p #{author.bio}
+      div.hearts
+        img(src='#{author.url}')
+      div.container
+        div.container-border
+          p #{author.bio}
       
       h2 Books
       if books[0] != null

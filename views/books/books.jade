@@ -1,19 +1,24 @@
 extends ../layout
 
 block content
-  div
-    a(href='/') Home
-
+  div.admin
+    h3
+      a(href='/') Home
+        img(src='/images/RainbowStar.gif-c200' width='25px') 
+  img(src='http://rs6.pbsrc.com/albums/y224/MagusMaster/DancingBlackMage.gif~c200' width='100px')    
   h1 Books
-  
+  div.loading
+    img(src='http://hackspc.com/wp-content/uploads/2010/12/1.gif' width='250px' id='loading')
   if books
     for book in books
-      h2 Book
-      br
-      h3 #{book.title}
-      br
-      h2 Author
-      for author in book.authors
-        h3 #{author.first} #{author.last}
+      div.chunk
+        h1
+          a(href='/books/book_profile/#{book.id}') #{book.title}
+        div.planets  
+          img(src='#{book.url}' width='150px')
+        ul
+          for author in book.authors
+            li
+              a(href='/authors/profile/#{author.id}') #{author.first} #{author.last}
         br
         br

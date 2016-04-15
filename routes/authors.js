@@ -3,13 +3,35 @@ const router = express.Router();
 const query = require('../lib/queries');
 const valid = require('../lib/validations');
 
+const ensureLoggedIn = function(req, res, next) {
+  if (req.session.user) {
+    next();
+  }
+  else {
+    res.redirect('/');
+  }
+}
+
 router.get('/', (req, res, next) => {
   query.allAuthors().then((authors) => {
-    res.render('authors/authors', { authors: authors });
+    var promises = [];
+
+    for (var i = 0; i < authors.length; i++) {
+      promises.push(query.booksByAuthor(authors[i].id));
+    }
+
+    Promise.all(promises).then((books) => {
+      for (var i = 0; i < authors.length; i++) {
+        authors[i].books = books[i];
+      }
+      res.render('authors/authors', { authors: authors });
+    });
+  }).catch((error) => {
+    res.render('authors/authors', { errors: error });
   });
 });
 
-router.get('/add', (req, res, next) => {
+router.get('/add', ensureLoggedIn, (req, res, next) => {
   res.render('authors/add_author');
 });
 
@@ -27,16 +49,11 @@ router.get('/:authSearch', (req, res, next) => {
   }
 
   query.authorByName(authName).then((author) => {
-    res.render('authors/authors', { authors: author });
-  });
-});
-
-
-router.get('/author_list/:bookId', (req, res, next) => {
-  const bookId = req.params.bookId;
-
-  query.authorsByBook(bookId).then((authors) => {
-    res.render('authors/authors_list', { authors: authors });
+    console.log(author);
+    query.booksByAuthor(author[0].id).then((book) => {
+      author[0].books = book;
+      res.render('authors/authors', { authors: author });
+    });
   });
 });
 

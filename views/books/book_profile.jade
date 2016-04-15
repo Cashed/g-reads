@@ -1,8 +1,10 @@
 extends ../layout
 
 block content
-  div
-    a(href='/') Home
+  div.admin
+    h3
+      a(href='/') Home
+        img(src='/images/RainbowStar.gif-c200' width='25px') 
   if book
     h1= book.title
     

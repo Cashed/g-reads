@@ -1,28 +1,32 @@
 extends ../layout
 
 block content
-  div
-    a(href='/') Home
-  
+  div.admin
+    h3
+      a(href='/') Home
+        img(src='/images/RainbowStar.gif-c200' width='25px') 
   div.container
-    h1 Add a Book
-    
-    form(action='/books/add' method='post')
-      div.form-group
-        label(for="title") Title
-        input.form-control(type="text" id="title" name="title" value= '' placeholder="Enter title...")
-      div.form-group
-        label(for="genre") Genre
-        input.form-control(type="text" id="genre" name="genre" value= '' placeholder="Enter genre...")
-      div.form-group
-        label(for="img_url") Cover Image URL
-        input.form-control(type="text" id="img_url" name="img_url" value= '' placeholder="Enter cover image url...")
-      div.form-group
-        label(for="description") Description
-        textarea.form-control(type="text" id="description" name="description" value= '' placeholder="Enter description...") 
-      div.form-group
-        label(for="authors") Author/s
-        textarea.form-control(type="text" id="authors" name="authors" value= '' placeholder="Enter authors...(ex: Mark Twain)")
-      div.form-group
-        button.btn.btn-primary(type="submit") Add Book
+    div.container-border
+      h1 Add a Book
       
+      form(action='/books/add' method='post')
+        div.form-group
+          label(for="title") Title
+          input.form-control(type="text" id="title" name="title" value= '' placeholder="Enter title...")
+        div.form-group
+          label(for="genre") Genre
+          input.form-control(type="text" id="genre" name="genre" value= '' placeholder="Enter genre...")
+        div.form-group
+          label(for="img_url") Cover Image URL
+          input.form-control(type="text" id="img_url" name="img_url" value= '' placeholder="Enter cover image url...")
+        div.form-group
+          label(for="description") Description
+          textarea.form-control(type="text" id="description" name="description" value= '' placeholder="Enter description...") 
+        div.form-group.authors
+          label(for="authors") Author/s
+          input.form-control(type="text", id="new-author" placeholder="Enter author...(ex: Mark Twain)")
+          button.btn.btn-primary(type="button" id="add-author") Add Author
+          textarea.form-control(type="text" id="authors" name="authors" value= '')
+        div.form-group
+          button.btn.btn-primary(type="submit") Add Book
+        
