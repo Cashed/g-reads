@@ -5,6 +5,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
+const connect = require('connect');
+const methodOverride = require('method-override');
 require('dotenv').load();
 
 const index = require('./routes/index');
@@ -26,6 +28,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 app.use(session({
   name: 'session',
   keys: [

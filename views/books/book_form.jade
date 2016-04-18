@@ -1,0 +1,28 @@
+div.form-group
+  label(for="title") Title
+  input.form-control(type="text" id="title" name="title" value= book.title placeholder="Enter title...")
+div.form-group
+  label(for="genre") Genre
+  input.form-control(type="text" id="genre" name="genre" value= book.genre placeholder="Enter genre...")
+div.form-group
+  label(for="img_url") Cover Image URL
+  input.form-control(type="text" id="img_url" name="img_url" value= book.url placeholder="Enter cover image url...")
+div.form-group
+  label(for="description") Description
+  textarea.form-control(type="text" id="description" name="description" placeholder="Enter description...") #{book.description} 
+div.form-group.authors
+  label(for="authors") Author/s
+  select.form-control(type="select", class="new-item")
+    for author in authors
+      option.form-control(value='#{author.first} #{author.last}') #{author.first} #{author.last}
+  button.btn.btn-primary(type="button" class="add-item") Add Author
+  textarea.form-control(type="text" class="item-list" name="authors")
+    for author in bookAuthors
+      |#{author.first} #{author.last} #{'\n'}
+  img(src='http://code.divshot.com/geo-bootstrap/img/test/construction.gif')
+  p or write-in a new author
+  input.form-group(type='text' name='custom-author')
+  button.btn.btn-primary(type="button" id="add-custom") Add Author
+  img(src='http://code.divshot.com/geo-bootstrap/img/test/construction.gif')
+div.form-group
+  button.btn.btn-primary(type="submit") Submit

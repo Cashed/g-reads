@@ -7,11 +7,10 @@ block content
         img(src='/images/RainbowStar.gif-c200' width='25px') 
   div.container
     div.container-border
-      h1 Add a Book
-      form(action='/books/add' method='post')
+      h1 Edit a Book
+      form(action='/books/edit/#{book.id}' method='post')
         include ./book_form.jade
       if errors
         ul.errors
           for error in errors
             li #{error}
-        

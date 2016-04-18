@@ -1,18 +1,16 @@
 (function() {
   $(document).ready(function(){
-    $('#add-author').on('click',function(){
-      var newAuthor = $('#new-author').val();
-      var currentAuthors = $('#authors').val();
+    $('.add-item').on('click',function(){
+      var newItem = $('.new-item').val();
+      var currentItems = $('.item-list').val();
 
-      newAuthor += '\n';
-
-      if (currentAuthors === '') {
-        $('#authors').val(newAuthor);
-        $('#new-author').val('');
+      if (currentItems === '') {
+        newItem += '\n';
+        $('.item-list').val(newItem);
       }
       else {
-        $('#authors').val(currentAuthors + newAuthor);
-        $('#new-author').val('');
+        newItem = '\n' + newItem;
+        $('.item-list').val(currentItems + newItem);
       }
     });
 

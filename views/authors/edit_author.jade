@@ -7,8 +7,8 @@ block content
         img(src='/images/RainbowStar.gif-c200' width='25px')
   div.container
     div.container-border
-      h1 Add an Author
-      form(action='/authors/add' method='post')
+      h1 Edit an Author 
+      form(action='/authors/edit/#{author.id}' method='post')
         include ./author_form.jade
       if errors
         p errors.message

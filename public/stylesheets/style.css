@@ -98,7 +98,7 @@ footer {
   background: url('http://code.divshot.com/geo-bootstrap/img/stars.gif');
 }
 
-.authors textarea {
+textarea {
   display: block;
   height: 100px;
 }
@@ -114,4 +114,12 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+}
+
+.errors {
+  color: red;
+}
+
+.book-pic {
+  width: 200px;
 }

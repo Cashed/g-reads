@@ -1,0 +1,26 @@
+
+div.form-group
+  label(for="name") Name
+  input.form-control(type="text" id="name" name="name" value= '#{author.first} #{author.last}' placeholder="Enter name... ex: Mark Twain")
+div.form-group
+  label(for="portrait-url") Portrait URL
+  input.form-control(type="text" id="portrait-url" name="portrait_url" value= author.url placeholder="Enter portrait url...")
+div.form-group
+  label(for="bio") Biography
+  textarea.form-control(type="text" id="bio" name="bio" placeholder= "Enter author bio...") #{author.bio}
+div.form-group
+  label(for="books") Book/s
+  select.form-control(type="select", class="new-item")
+    for book in books
+      option.form-control(value='#{book.title}') #{book.title}
+  button.btn.btn-primary(type="button" class="add-item") Add Book
+  textarea.form-control(type="text" class="item-list" name="books" placeholder="Enter books...(ex: The Mysterious Stranger)")
+    for book in authorBooks
+      | #{book.title} #{'\n'}
+  img(src='http://code.divshot.com/geo-bootstrap/img/test/construction.gif')
+  p or write-in a new book
+  input.form-group(type='text' name='custom-author')
+  button.btn.btn-primary(type="button" id="add-custom") Add Author
+  img(src='http://code.divshot.com/geo-bootstrap/img/test/construction.gif')
+div.form-group
+  button.btn.btn-primary(type="submit") Submit

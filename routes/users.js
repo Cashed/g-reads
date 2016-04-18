@@ -13,11 +13,11 @@ router.post('/create', (req, res, next) => {
   const password = req.body.password;
 
   if (!valid.username(username)) {
-    error.push('username not valid (alpha characters only, min 4 count)');
+    errors.push('username not valid (alpha characters only, min 4 count)');
   }
 
   if (!valid.password(password)) {
-    error.push('password not valid (must contain at least 1 alpha and 1 digit, min 4 count)');
+    errors.push('password not valid (must contain at least 1 alpha and 1 digit, min 4 count)');
   }
 
   if (errors.length) {
@@ -27,10 +27,11 @@ router.post('/create', (req, res, next) => {
 
   user.create(req.body, (error, data) => {
     if (error) {
-      res.render('users/create_user', { errors: error })
+      console.log(error);
+      res.render('users/create_user', { errors: [error] })
       return;
     }
-    res.send(data);
+    res.redirect('/login');
   });
 });
 

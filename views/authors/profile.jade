@@ -5,23 +5,30 @@ block content
     h3
       a(href='/') Home
         img(src='/images/RainbowStar.gif-c200' width='25px') 
-  if authors
-    for author in authors
-      h1 #{author.first} #{author.last}
-      div.hearts
-        img(src='#{author.url}')
-      div.container
-        div.container-border
-          p #{author.bio}
-      
-      h2 Books
-      if books[0] != null
-        for book in books
-          h3 
-            a(href='/books/book_profile/#{book.id}') #{book.title}
-      else
-        p no books listed at this time
-      
+    if authors
+      for author in authors
+        h3 
+          a(href='/authors/edit/#{author.id}') Edit
+            img(src='/images/RainbowStar.gif-c200' width='25px') 
+        h3 
+          a(href='#') Delete
+            img(src='/images/RainbowStar.gif-c200' width='25px')
+  for author in authors         
+    h1 #{author.first} #{author.last}
+    div.hearts
+      img(src='#{author.url}')
+    div.container
+      div.container-border
+        p #{author.bio}
+    
+    h2 Books
+    if books[0] != null
+      for book in books
+        h3 
+          a(href='/books/book_profile/#{book.id}') #{book.title}
+    else
+      p no books listed at this time
+        
     
     
   

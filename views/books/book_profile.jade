@@ -1,14 +1,20 @@
 extends ../layout
 
 block content
-  div.admin
-    h3
-      a(href='/') Home
-        img(src='/images/RainbowStar.gif-c200' width='25px') 
   if book
+    div.admin
+      h3
+        a(href='/') Home
+          img(src='/images/RainbowStar.gif-c200' width='25px') 
+      h3 
+        a(href='/books/edit/#{book.id}') Edit
+          img(src='/images/RainbowStar.gif-c200' width='25px') 
+      h3 
+        a(href='#') Delete
+          img(src='/images/RainbowStar.gif-c200' width='25px')
     h1= book.title
     
-    img(src='#{book.url}')
+    img(src='#{book.url}' class='book-pic')
     
     p= book.description
     
@@ -17,7 +23,7 @@ block content
       for author in authors
         h3 
           a(href='/authors/profile/#{author.id}') #{author.first} #{author.last}
-    
+  
     
   
         

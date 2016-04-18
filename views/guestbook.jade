@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  div.admin
+    h3
+      a(href='/') Home
+        img(src='/images/RainbowStar.gif-c200' width='25px')     
+  div.container
+    div.container-border
+      form(action='guestbook' method='post')
+        input.form-group(type='text' placeholder='Enter name...' name='name')
+        textarea.form-group(type='text' placeholder='Enter message...' name='message' style='width:100%')
+        button.btn.btn-primary(type='submit') Submit
+  if messages
+    for message in messages
+      div.container
+        div.container-border
+          div.message
+            h4 Name
+            p.name #{message.name}
+            h4 Message
+            p.message #{message.message}
