@@ -101,7 +101,10 @@ router.post('/add', ensureLoggedIn, (req, res, next) => {
   const name = req.body.name;
   const portrait = req.body.portrait_url;
   const bio = req.body.bio;
-  const books = req.body.books.split("\r\n");
+  const books;
+  if (req.body.books) {
+    books = req.body.books.split("\r\n");
+  }
 
   if (!valid.author(name)) {
     errors.push('name not in valid format (a-z ,.\'\-)');
@@ -120,23 +123,28 @@ router.post('/add', ensureLoggedIn, (req, res, next) => {
   }
 
   insert.author(author).then((author) => {
-    var promises = [];
+    if (books) {
+      var promises = [];
 
-    for (var i = 0; i < books.length-1; i++) {
-      promises.push(query.bookByTitle(books[i]));
-    }
-
-    Promise.all(promises).then((books) => {
-      const book = books[0];
-      var insertPromises = [];
-      for (var i = 0; i < book.length; i++) {
-        insertPromises.push(insert.joinTable(author[0].id, book[i].id));
+      for (var i = 0; i < books.length-1; i++) {
+        promises.push(query.bookByTitle(books[i]));
       }
 
-      Promise.all(insertPromises).then((inserts) => {
-        res.redirect(`/authors/profile/${author[0].id}`);
-      })
-    });
+      Promise.all(promises).then((books) => {
+        const book = books[0];
+        var insertPromises = [];
+        for (var i = 0; i < book.length; i++) {
+          insertPromises.push(insert.joinTable(author[0].id, book[i].id));
+        }
+
+        Promise.all(insertPromises).then((inserts) => {
+          res.redirect(`/authors/profile/${author[0].id}`);
+        })
+      });
+    }
+    else {
+      res.redirect(`/authors/profile/${author[0].id}`);
+    }
   })
   .catch((error) => {
     res.render('authors/add_author', { errors: [error] });

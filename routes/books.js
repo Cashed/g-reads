@@ -49,7 +49,7 @@ router.get('/add', ensureLoggedIn, (req, res, next) => {
   query.allAuthors().then((authors) => {
     res.render('books/add_book', { book: {}, bookAuthors: {}, authors: authors });
   }).catch((error) => {
-    res.render('books/add_book', { book: {}, authors: {}, errors: error })
+    res.render('books/add_book', { book: {}, bookAuthors: {}, authors: {}, errors: error })
   });
 });
 
@@ -109,7 +109,10 @@ router.post('/add', ensureLoggedIn, (req, res, next) => {
   const genre = req.body.genre;
   const description = req.body.description;
   const url = req.body.img_url;
-  const authors = req.body.authors.split("\r\n");
+  const authors;
+  if (req.body.authors) {
+    authors = req.body.authors.split("\r\n");
+  }
 
   if (!valid.title(title)) {
     errors.push('title not in valid format (alpha, digits, ,.\'-:)');
@@ -132,27 +135,32 @@ router.post('/add', ensureLoggedIn, (req, res, next) => {
   }
 
   insert.book(book).then((book) => {
-    var promises = [];
+    if (authors) {
+      var promises = [];
 
-    for (var i = 0; i < authors.length-1; i++) {
-      promises.push(query.authorByName(authors[i]));
-    }
-
-    Promise.all(promises).then((authors) => {
-      const author = authors[0];
-      var insertPromises = [];
-
-      for (var i = 0; i < author.length; i++) {
-        insertPromises.push(insert.joinTable(author[i].id, book[0].id));
+      for (var i = 0; i < authors.length-1; i++) {
+        promises.push(query.authorByName(authors[i]));
       }
 
-      Promise.all(insertPromises).then((inserts) => {
-        res.redirect(`/books/book_profile/${book[0].id}`);
-      })
-    });
+      Promise.all(promises).then((authors) => {
+        const author = authors[0];
+        var insertPromises = [];
+
+        for (var i = 0; i < author.length; i++) {
+          insertPromises.push(insert.joinTable(author[i].id, book[0].id));
+        }
+
+        Promise.all(insertPromises).then((inserts) => {
+          res.redirect(`/books/book_profile/${book[0].id}`);
+        })
+      });
+    }
+    else {
+      res.redirect(`/books/book_profile/${book[0].id}`);
+    }
   })
   .catch((error) => {
-    res.render('books/add_book', { errors: [error] });
+    res.render('books/add_book', { book: {}, bookAuthors: {}, authors: {}, errors: [error] });
   });
 
 });
