@@ -47,7 +47,7 @@ router.get('/book_profile/:bookId', (req, res, next) => {
 
 router.get('/add', ensureLoggedIn, (req, res, next) => {
   query.allAuthors().then((authors) => {
-    res.render('books/add_book', { book: {}, authors: authors });
+    res.render('books/add_book', { book: {}, bookAuthors: {}, authors: authors });
   }).catch((error) => {
     res.render('books/add_book', { book: {}, authors: {}, errors: error })
   });
