@@ -147,7 +147,7 @@ router.post('/add', ensureLoggedIn, (req, res, next) => {
     }
   })
   .catch((error) => {
-    res.render('authors/add_author', { errors: [error] });
+    res.render('authors/add_author', { errors: [error], author: {}, authorBooks: {}, books: {} });
   });
 
 });
